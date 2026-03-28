@@ -1,0 +1,12 @@
+# OpenCR USB serial — from ROBOTIS-GIT/OpenCR (install on Jetson for stable permissions).
+# Source: https://raw.githubusercontent.com/ROBOTIS-GIT/OpenCR/master/99-opencr-cdc.rules
+#
+# sudo cp scripts/udev/99-opencr-cdc.rules /etc/udev/rules.d/
+# sudo udevadm control --reload-rules && sudo udevadm trigger
+#
+#http://linux-tips.org/t/prevent-modem-manager-to-capture-usb-serial-devices/284/2.
+
+ATTRS{idVendor}=="0483" ATTRS{idProduct}=="5740", ENV{ID_MM_DEVICE_IGNORE}="1", MODE:="0666"
+ATTRS{idVendor}=="0483" ATTRS{idProduct}=="df11", MODE:="0666"
+ATTRS{idVendor}=="fff1" ATTRS{idProduct}=="ff48", ENV{ID_MM_DEVICE_IGNORE}="1", MODE:="0666"
+ATTRS{idVendor}=="10c4" ATTRS{idProduct}=="ea60", ENV{ID_MM_DEVICE_IGNORE}="1", MODE:="0666"

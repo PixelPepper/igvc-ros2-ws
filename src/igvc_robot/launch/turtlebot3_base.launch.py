@@ -56,8 +56,8 @@ def generate_launch_description():
             ),
             DeclareLaunchArgument(
                 "opencr_port",
-                default_value="/dev/ttyACM1",
-                description="Connected USB port for the OpenCR board",
+                default_value="/dev/ttyACM0",
+                description="Connected USB port for the OpenCR board (use ttyACM1 if that is the active node)",
             ),
             DeclareLaunchArgument(
                 "tb3_param_dir",
