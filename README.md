@@ -80,6 +80,8 @@ ros2 launch igvc_robot turtlebot3_localization.launch.py opencr_port:=/dev/ttyAC
 
 More context: [docs/TURTLEBOT3_OPENCR_SETUP_CHAT_SUMMARY.md](docs/TURTLEBOT3_OPENCR_SETUP_CHAT_SUMMARY.md).
 
+After laptop motor setup, flash on Jetson and plan Nav2 integration: [docs/JETSON_HANDOFF_AND_NAV2.md](docs/JETSON_HANDOFF_AND_NAV2.md).
+
 ## Repository layout
 
 | Path | Role |
@@ -88,6 +90,25 @@ More context: [docs/TURTLEBOT3_OPENCR_SETUP_CHAT_SUMMARY.md](docs/TURTLEBOT3_OPE
 | `src/sllidar_ros2` | Slamtec RPLidar ROS 2 driver |
 | `src/ublox` | u-blox GPS driver stack |
 | `ping_pong` | Optional Arduino encoder sketch (legacy bridge path) |
+
+## Troubleshooting
+
+**`COLCON_TRACE`, `AMENT_TRACE_SETUP_FILES`, or other “unbound variable” when sourcing ROS:** Your shell has `set -u` (nounset). ROS 2 and colcon setup scripts assume many optional variables may be unset.
+
+Use the workspace helper (recommended):
+
+```bash
+source ~/ros2_ws/scripts/setup_ros_env.bash
+```
+
+Or disable nounset only for sourcing:
+
+```bash
+set +u
+source /opt/ros/humble/setup.bash
+source install/setup.bash
+set -u
+```
 
 ## License
 

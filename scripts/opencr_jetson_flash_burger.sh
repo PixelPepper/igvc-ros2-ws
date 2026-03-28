@@ -47,10 +47,20 @@ if ! dpkg -l libc6:armhf 2>/dev/null | grep -q '^ii'; then
 fi
 
 cd "$WORKDIR"
-rm -rf opencr_update opencr_update.tar.bz2
+rm -rf opencr_update opencr_bundle
 echo "Downloading firmware bundle..."
-wget -O opencr_update.tar.bz2 "$ARCHIVE_URL"
-tar -xjf opencr_update.tar.bz2
+wget -O opencr_bundle "$ARCHIVE_URL"
+# Upstream file is named *.tar.bz2 but is often gzip-compressed on raw.githubusercontent.com
+if tar -xzf opencr_bundle 2>/dev/null; then
+  :
+elif tar -xjf opencr_bundle 2>/dev/null; then
+  :
+else
+  echo "Could not extract firmware bundle (expected gzip or bzip2 tar)." >&2
+  file opencr_bundle >&2
+  exit 1
+fi
+rm -f opencr_bundle
 cd opencr_update
 
 FW="${MODEL}.opencr"

@@ -3,8 +3,11 @@
 set -euo pipefail
 
 WS="$(cd "$(dirname "$0")/.." && pwd)"
+# ROS/colcon/ament setup scripts reference many unset optional vars; `set -u` breaks them.
+set +u
 # shellcheck source=/dev/null
-source "$WS/install/setup.bash"
+source "$WS/install/setup.bash" || { set -u; exit 1; }
+set -u
 
 PORT="${OPENCR_PORT:-}"
 if [[ -z "$PORT" ]]; then

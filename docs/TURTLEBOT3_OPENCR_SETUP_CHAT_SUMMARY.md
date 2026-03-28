@@ -62,9 +62,11 @@ export OPENCR_PORT=/dev/ttyACM1   # use whatever device exists when you flash
 export OPENCR_MODEL=burger
 
 cd ~
-rm -rf opencr_update opencr_update.tar.bz2
-wget https://github.com/ROBOTIS-GIT/OpenCR-Binaries/raw/master/turtlebot3/ROS2/latest/opencr_update.tar.bz2
-tar -xvf opencr_update.tar.bz2
+rm -rf opencr_update opencr_bundle
+wget -O opencr_bundle https://github.com/ROBOTIS-GIT/OpenCR-Binaries/raw/master/turtlebot3/ROS2/latest/opencr_update.tar.bz2
+# File is named .tar.bz2 but is served as gzip; try gzip then bzip2
+tar -xzf opencr_bundle 2>/dev/null || tar -xjf opencr_bundle
+rm -f opencr_bundle
 cd opencr_update
 ./update.sh "$OPENCR_PORT" "$OPENCR_MODEL.opencr"
 ```
